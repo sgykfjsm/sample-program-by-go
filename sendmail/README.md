@@ -16,6 +16,7 @@ Open your browser and then go to http://127.0.0.1:8025
 
 ## Reference
 
+- https://github.com/mailhog/MailHog
 - https://github.com/go-gomail/gomail
 - https://godoc.org/gopkg.in/gomail.v2
 - https://github.com/golang/go/wiki/SendingMail
