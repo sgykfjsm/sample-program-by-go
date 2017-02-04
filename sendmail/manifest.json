@@ -1,0 +1,7 @@
+{
+    "dependencies": {
+        "github.com/go-gomail/gomail": {
+            "branch": "master"
+        }
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "memo": "e267375ae011ef0a6ba1e7e166c34f9814fc22ae024091ca0ee19dd8a6ab0c7c",
+    "projects": [
+        {
+            "name": "github.com/go-gomail/gomail",
+            "branch": "master",
+            "revision": "81ebce5c23dfd25c6c67194b37d3dd3f338c98b1",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "gopkg.in/alexcesaro/quotedprintable.v3",
+            "branch": "v3",
+            "revision": "2caba252f4dc53eaf6b553000885530023f54623",
+            "packages": [
+                "."
+            ]
+        }
+    ]
+}
