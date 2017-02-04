@@ -1,0 +1,29 @@
+{
+    "memo": "aec7fd4ac988a160335d8359d8bb284ec135d7ee7ee8b7db4505214b66b7a05c",
+    "projects": [
+        {
+            "name": "github.com/jmoiron/sqlx",
+            "branch": "master",
+            "revision": "f980a91bdc37abef88269b8f122d7de6352102f5",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/mattn/go-sqlite3",
+            "version": "v1.2.0",
+            "revision": "ca5e3819723d8eeaf170ad510e7da1d6d2e94a08",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "golang.org/x/net",
+            "branch": "master",
+            "revision": "41bba8d80bbfab43231ffdf4c210037baae5f6a3",
+            "packages": [
+                "context"
+            ]
+        }
+    ]
+}
