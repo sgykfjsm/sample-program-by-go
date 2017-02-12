@@ -1,0 +1,53 @@
+{
+    "memo": "2b97f4a1683ccfd6cf7d59ffc5211aa1f7dbfbc7042205b0a4a1b3533c1d9091",
+    "projects": [
+        {
+            "name": "github.com/facebookgo/clock",
+            "branch": "master",
+            "revision": "600d898af40aa09a7a93ecb9265d87b0504b6f03",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/facebookgo/grace",
+            "branch": "master",
+            "revision": "5729e484473f52048578af1b80d0008c7024089b",
+            "packages": [
+                "gracehttp"
+            ]
+        },
+        {
+            "name": "github.com/facebookgo/httpdown",
+            "branch": "master",
+            "revision": "a3b1354551a26449fbe05f5d855937f6e7acbd71",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/facebookgo/stats",
+            "branch": "master",
+            "revision": "1b76add642e42c6ffba7211ad7b3939ce654526e",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/gorilla/context",
+            "version": "v1.1",
+            "revision": "1ea25387ff6f684839d82767c1733ff4d4d15d0a",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/gorilla/mux",
+            "version": "v1.3.0",
+            "revision": "392c28fe23e1c45ddba891b0320b3b5df220beea",
+            "packages": [
+                "."
+            ]
+        }
+    ]
+}

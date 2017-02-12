@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<body>
+<ul>
+<li>First Name: {{ .Person.FirstName }}</li>
+<li>Last Name: {{ .Person.LastName }}</li>
+</ul>
+<hr>
+<a href="/action?fname={{ .NextFirstName }}&lname={{ .NextLastName }}">Reload With random parameter</a><br>
+<a href="/form">Return to /form</a>
+</body>
+</html>

@@ -1,0 +1,10 @@
+{
+    "dependencies": {
+        "github.com/facebookgo/grace": {
+            "branch": "master"
+        },
+        "github.com/gorilla/mux": {
+            "branch": "master"
+        }
+    }
+}
