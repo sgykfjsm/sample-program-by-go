@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebSocketSample</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin="anonymous"></script>
+    <script type="application/javascript">
+        $(document).ready(function(){
+            console.log("start");
+
+            var output = $("div#output");
+            var input = $("input#input");
+            var ws;
+
+            var print = function(message) {
+                output.append("<p>" + message +"</p>");
+            };
+
+            $("#open").click(function(e){
+                if (ws) {
+                    return false;
+                }
+                ws = new WebSocket("{{.}}");
+
+                ws.onopen = function(e) {
+                    print("OPEN");
+                };
+
+                ws.onclose = function (e) {
+                    print("CLOSE");
+                    ws = null;
+                };
+
+                ws.onmessage = function(e) {
+                    print("RESPONSE: " + e.data);
+                };
+
+                ws.onerror = function(e) {
+                    print("ERROR: " + e.data)
+                };
+
+                return false;
+            });
+
+            $("#send").click(function(e){
+                if (!ws) {
+                    return false;
+                }
+                print("SEND: " + input.val());
+                ws.send(input.val());
+
+               return false;
+            });
+
+            $("#close").click(function (e) {
+                if (!ws) {
+                    return false;
+                }
+                ws.close();
+
+                return false;
+            });
+        });
+    </script>
+</head>
+<body>
+<p>
+<p>Click "Open" to create a connection to the server,<br>
+    "Send" to send a message to the server and "Close" to close the connection.<br>
+    You can change the message and send multiple times.<br>
+<p>
+    <form>
+        <button id="open">Open</button>
+        <button id="close">Close</button>
+        <input id="input" type="text" value="Hello world!">
+        <button id="send">Send</button>
+    </form>
+</p>
+<h2>Output</h2>
+<div id="output"></div>
+<hr />
+<table>
+    <thead>
+        <tr>
+            <th>Type</th><th>Time</th><th>Image</th>
+        </tr>
+    </thead>
+    <tbody>
+        <td>Sample</td>
+        <td></td>
+        <td><img src="http://cdn-ak.f.st-hatena.com/images/fotolife/p/pema/20120511/20120511064757.jpg" /></td>
+    </tbody>
+</table>
+</body>
+</html>

@@ -17,6 +17,9 @@ import (
 
 	"github.com/facebookgo/grace/gracehttp"
 	"github.com/gorilla/mux"
+	"github.com/gorilla/websocket"
+	"net/url"
+	"time"
 )
 
 var formHTML = `
@@ -39,8 +42,13 @@ var formHTML = `
 </body>
 </html>`
 
-var formTempl = template.Must(template.New("form").Parse(formHTML))
-var actionTempl = template.Must(template.New("action").ParseFiles("action.html"))
+var (
+	formTempl   = template.Must(template.New("form").Parse(formHTML))
+	actionTempl = template.Must(template.New("action").ParseFiles("action.html"))
+	wsTemple    = template.Must(template.New("websocket").ParseFiles("websocket.html"))
+	upgrader    = websocket.Upgrader{}
+	addr        = ":8081"
+)
 
 type Person struct {
 	FirstName string
@@ -90,27 +98,106 @@ func ActionHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func WebSocketClient() (*websocket.Conn, url.URL, error) {
+	u := url.URL{Scheme: "ws", Host: "localhost" + addr, Path: "/ws"}
+	log.Printf("Connecting to %s", u.String())
+	c, _, err := websocket.DefaultDialer.Dial(u.String(), nil)
+
+	return c, u, err
+}
+
+func WebSocket(w http.ResponseWriter, r *http.Request) {
+	c, err := upgrader.Upgrade(w, r, nil)
+	if err != nil {
+		log.Printf("Failed to upgrade gorilla/websocket: %s", err.Error())
+		return
+	}
+
+	for {
+		m, message, err := c.ReadMessage()
+		if err != nil {
+			log.Printf("Failed to read message: %s", err.Error())
+			return
+		}
+		log.Printf("recieve: %s", string(message))
+		err = c.WriteMessage(m, message)
+		if err != nil {
+			log.Printf("Failed to write message: %s", err.Error())
+			return
+		}
+	}
+}
+
+func WebSocketHandler(w http.ResponseWriter, r *http.Request) {
+	if err := wsTemple.ExecuteTemplate(w, "websocket.html", "ws://"+r.Host+"/ws"); err != nil {
+		log.Fatalf("Failed to return html: %s", err.Error())
+	}
+}
+
 func main() {
 	sig := make(chan os.Signal, 1)
 	done := make(chan bool, 1)
-	signal.Notify(sig, syscall.SIGQUIT, syscall.SIGTERM, syscall.SIGINT)
+	signal.Notify(sig, syscall.SIGQUIT, syscall.SIGTERM, syscall.SIGINT, syscall.SIGKILL)
 
-	go func() {
-		for {
-			s := <-sig
-			fmt.Printf("\nCatch the signal: %s\n", s.String())
-			done <- true
-			break
-		}
-	}()
-
-	addr := ":8081"
 	r := mux.NewRouter()
 	r.HandleFunc("/", IndexHandler)
 	r.HandleFunc("/param", ActionHandler)
 	r.HandleFunc("/form", FormHandler)
 	r.HandleFunc("/action", ActionHandler)
-	gracehttp.Serve(&http.Server{Addr: addr, Handler: r})
+	r.HandleFunc("/ws", WebSocket)
+	r.HandleFunc("/websocket", WebSocketHandler)
 
+	var c *websocket.Conn
+	t0 := time.NewTicker(time.Second)
+	go func() {
+		defer t0.Stop()
+		var err error
+		var u url.URL
+		for {
+			select {
+			case <-t0.C:
+				c, u, err = WebSocketClient()
+				if err != nil {
+					log.Printf("Failed to connect to %s: %s", u.String(), err.Error())
+				}
+				if c != nil {
+					log.Printf("Connected to %s", u.String())
+					return
+				}
+			}
+		}
+	}()
+	defer c.Close()
+
+	t1 := time.NewTicker(1 * time.Second)
+	go func() {
+		defer t1.Stop()
+		for {
+			select {
+			case _t := <-t1.C:
+				if c != nil {
+					err := c.WriteMessage(websocket.TextMessage, []byte(_t.String()))
+					if err != nil {
+						log.Printf("Failed to write message: %s", err.Error())
+						return
+					}
+				}
+			}
+		}
+	}()
+
+	go func() {
+		s := <-sig
+		fmt.Printf("\nCatch the signal: %s\n", s.String())
+		err := c.WriteMessage(websocket.CloseMessage, websocket.FormatCloseMessage(websocket.CloseNormalClosure, ""))
+		if err != nil {
+			log.Println("Failed to write close message: %s", err.Error())
+			return
+		}
+		done <- true
+	}()
+
+	log.Println("Start Servre")
+	gracehttp.Serve(&http.Server{Addr: addr, Handler: r})
 	<-done
 }

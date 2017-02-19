@@ -1,5 +1,5 @@
 {
-    "memo": "2b97f4a1683ccfd6cf7d59ffc5211aa1f7dbfbc7042205b0a4a1b3533c1d9091",
+    "memo": "9dcf2450a3fb998ac2905f447696a1443023b91a25f99f0d86e6271b108d7c77",
     "projects": [
         {
             "name": "github.com/facebookgo/clock",
@@ -12,7 +12,7 @@
         {
             "name": "github.com/facebookgo/grace",
             "branch": "master",
-            "revision": "5729e484473f52048578af1b80d0008c7024089b",
+            "revision": "4afe952a37a495ae4ac0c1d4ce5f66e91058d149",
             "packages": [
                 "gracehttp"
             ]
@@ -43,8 +43,16 @@
         },
         {
             "name": "github.com/gorilla/mux",
-            "version": "v1.3.0",
-            "revision": "392c28fe23e1c45ddba891b0320b3b5df220beea",
+            "branch": "master",
+            "revision": "94e7d24fd285520f3d12ae998f7fdd6b5393d453",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/gorilla/websocket",
+            "version": "v1.1.0",
+            "revision": "3ab3a8b8831546bd18fd182c20687ca853b2bb13",
             "packages": [
                 "."
             ]

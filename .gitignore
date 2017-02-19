@@ -134,3 +134,4 @@ modules.xml
 bin
 .idea/codeStyleSettings.xml
 .idea/vcs.xml
+twitter/credential.toml
