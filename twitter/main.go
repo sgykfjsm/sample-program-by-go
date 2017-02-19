@@ -69,6 +69,8 @@ func main() {
 	go func() {
 		t := time.NewTicker(10 * time.Second)
 		t2 := time.NewTicker(120 * time.Second)
+		defer t.Stop()
+		defer t2.Stop()
 
 		tweetCount := 0
 		for {
@@ -100,13 +102,14 @@ func main() {
 				}
 				showAll = false
 				log.Println("Waiting for 5 seconds...")
-			case <-sig:
-				done <- true
-				t.Stop()
-				t2.Stop()
-				return
 			}
 		}
+	}()
+
+	go func() {
+		<-sig
+		done <- true
+		return
 	}()
 
 	<-done
