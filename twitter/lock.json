@@ -1,0 +1,61 @@
+{
+    "memo": "91cdcb0d1bd5c2bd3e10c690b03f4475206d763909ca9dfd90ad56bf0e32fb31",
+    "projects": [
+        {
+            "name": "github.com/BurntSushi/toml",
+            "branch": "master",
+            "revision": "99064174e013895bbd9b025c31100bd1d9b590ca",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/ChimeraCoder/anaconda",
+            "branch": "master",
+            "revision": "00ecb7b4510497dc28cd46a598007ab8fe01f889",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/ChimeraCoder/tokenbucket",
+            "branch": "master",
+            "revision": "c5a927568de7aad8a58127d80bcd36ca4e71e454",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/azr/backoff",
+            "branch": "master",
+            "revision": "53511d3c733003985b0b76f733df1f4d0095ee6a",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/dustin/go-jsonpointer",
+            "branch": "master",
+            "revision": "ba0abeacc3dcca5b9b20f31509c46794edbc9965",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/dustin/gojson",
+            "branch": "master",
+            "revision": "2e71ec9dd5adce3b168cd0dbde03b5cc04951c30",
+            "packages": [
+                "."
+            ]
+        },
+        {
+            "name": "github.com/garyburd/go-oauth",
+            "branch": "master",
+            "revision": "4f191fd0442e75c0c73bd00e4f5f27d4c08312ee",
+            "packages": [
+                "oauth"
+            ]
+        }
+    ]
+}
